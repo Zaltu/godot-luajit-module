@@ -2,6 +2,9 @@
 
 #include "PXLua.h"
 
+#include <stdio.h>
+#include <iostream>
+
 PXLua::PXLua() {
     setupLuaState();
 }
@@ -16,8 +19,14 @@ PXLua::PXLua() {
 String PXLua::sendStateEvent(String event){
     lua_getfield(L, -1, "event");
     lua_pushstring(L, event.utf8());
-    lua_pcall(L, 1, 1, 0);
-    //std::string returncode = lua_tostring(L, -1);
+    int code = lua_pcall(L, 1, 1, 0);
+    if (code != 0){
+        // There was a problem in the Lua call.
+        // It could be a Lua error or it could be a problem with the stack
+        // Either way, we should force-quit here... 
+        std::cout << lua_tostring(L, -1) << std::endl;
+        // TODO force quit or signal godot to force quit
+    }
     lua_pop(L, 1);
     return getUpdate();
 }
@@ -52,8 +61,7 @@ void PXLua::setupLuaState(){
 void PXLua::runPathSet(const char* command){
     int code = luaL_dostring(L, command);
     if (code != 0){
-        //std::string luaerror = lua_tostring(L, -1);
-        //UE_LOG(LogTemp, Error, TEXT("Error initializing Lua State:\n%s"), *FString(luaerror.c_str()));
+        std::cout << lua_tostring(L, -1) << std::endl;
     }
 }
 
