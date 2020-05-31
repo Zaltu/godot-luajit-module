@@ -14,10 +14,10 @@ extern "C"{
 /*Defines runtime Lua import paths, and imports the state, which instantiates the game state
 and sets it as global variable. Defined for explicit runtime. Currently checks for the paths
 in my personal clone of the lua src.*/
-const char * const LUA_PERSONAX_PATH = "package.path = package.path..';K:/Git Repos/personax-lua-src/model/?.lua'";
-const char * const MY_LUA_PATH = "package.path = package.path..';K:/Git Repos/personax-lua-src/extlib/lua_path/?.lua'";
-const char * const MY_LUA_CPATH = "package.cpath = package.cpath..';K:/Git Repos/personax-lua-src/extlib/lua_cpath/?.dll'";
-const char * const GLOBAL_DATAPATH = "_G.DATAPATH = 'K:/Git Repos/personax-lua-src/model/data/'";
+const char * const LUA_PERSONAX_PATH = "package.path = package.path..';K:/Git/personax-lua-src/model/?.lua'";
+const char * const MY_LUA_PATH = "package.path = package.path..';K:/Git/personax-lua-src/extlib/lua_path/?.lua'";
+const char * const MY_LUA_CPATH = "package.cpath = package.cpath..';K:/Git/personax-lua-src/extlib/lua_cpath/?.dll'";
+const char * const GLOBAL_DATAPATH = "_G.DATAPATH = 'K:/Git/personax-lua-src/model/data/'";
 const char * const REQUIRE_STATE = "require('state')";
 
 
