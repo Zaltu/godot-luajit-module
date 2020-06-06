@@ -1,4 +1,4 @@
-/* summator.cpp */
+/* PXLua.cpp */
 
 #include "PXLua.h"
 
@@ -46,10 +46,21 @@ String PXLua::getUpdate(){
 	return update;
 }
 
+
+/**
+* Singleton utility to apply the setup to the game.
+* i.e. start the game, which means calling
+* `require("util/state/start_game")`
+* NOT USED FOR LOADING. Calling will essentially reset
+* the game state to day 1/default start.
+*/
+void PXLua::startGame(){
+    runPathSet(SETUP_STATE);
+}
+
 void PXLua::setupLuaState(){
     L = lua_open();
     luaL_openlibs(L);
-    //UE_LOG(LogTemp, Warning, TEXT("Forcing re-evaluation of Lua paths."));
     runPathSet(LUA_PERSONAX_PATH);
     runPathSet(MY_LUA_PATH);
     runPathSet(MY_LUA_CPATH);
@@ -61,6 +72,7 @@ void PXLua::setupLuaState(){
 void PXLua::runPathSet(const char* command){
     int code = luaL_dostring(L, command);
     if (code != 0){
+        // Prob should return the real error code
         std::cout << lua_tostring(L, -1) << std::endl;
     }
 }
@@ -68,4 +80,5 @@ void PXLua::runPathSet(const char* command){
 void PXLua::_bind_methods() {
     ClassDB::bind_method(D_METHOD("sendStateEvent", "event"), &PXLua::sendStateEvent);
     ClassDB::bind_method(D_METHOD("getUpdate"), &PXLua::getUpdate);
+    ClassDB::bind_method(D_METHOD("startGame"), &PXLua::startGame);
 }

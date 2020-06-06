@@ -1,4 +1,4 @@
-/* summator.h */
+/* PXLua.h */
 #ifndef PXLUA_H
 #define PXLUA_H
 
@@ -19,6 +19,7 @@ const char * const MY_LUA_PATH = "package.path = package.path..';K:/Git/personax
 const char * const MY_LUA_CPATH = "package.cpath = package.cpath..';K:/Git/personax-lua-src/extlib/lua_cpath/?.dll'";
 const char * const GLOBAL_DATAPATH = "_G.DATAPATH = 'K:/Git/personax-lua-src/model/data/'";
 const char * const REQUIRE_STATE = "require('state')";
+const char * const SETUP_STATE = "require('util/state/start_game')";
 
 
 class PXLua : public Reference {
@@ -33,6 +34,7 @@ public:
     // Send event to the GSV
 	String sendStateEvent(String event);
 	String getUpdate();
+    void startGame();
 
     PXLua();
 
