@@ -41,7 +41,7 @@ public:
     PXLua();
 
 private:
-	void runPathSet(const char* command);
+	void runPathSet(String command);
 };
 
 #endif
