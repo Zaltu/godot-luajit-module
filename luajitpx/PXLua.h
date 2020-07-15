@@ -14,12 +14,8 @@ extern "C"{
 /*Defines runtime Lua import paths, and imports the state, which instantiates the game state
 and sets it as global variable. Defined for explicit runtime. Currently checks for the paths
 in my personal clone of the lua src.*/
-const char * const LUA_PERSONAX_PATH = "package.path = package.path..';K:/Git/personax-lua-src/model/?.lua'";
-const char * const MY_LUA_PATH = "package.path = package.path..';K:/Git/personax-lua-src/extlib/lua_path/?.lua'";
-const char * const MY_LUA_CPATH = "package.cpath = package.cpath..';K:/Git/personax-lua-src/extlib/lua_cpath/?.dll'";
-const char * const GLOBAL_DATAPATH = "_G.DATAPATH = 'K:/Git/personax-lua-src/model/data/'";
-const char * const REQUIRE_STATE = "require('state')";
-const char * const SETUP_STATE = "require('util/state/start_game')";
+String REQUIRE_STATE = "require('state')";
+String SETUP_STATE = "require('util/state/start_game')";
 
 
 class PXLua : public Reference {
@@ -35,11 +31,16 @@ public:
 	String sendStateEvent(String event);
 	String getUpdate();
     void startGame();
+    void setupLuaState(
+        String LUA_PERSONAX_PATH,
+        String MY_LUA_PATH,
+        String MY_LUA_CPATH,
+        String GLOBAL_DATAPATH
+    );
 
     PXLua();
 
 private:
-	void setupLuaState();
 	void runPathSet(const char* command);
 };
 

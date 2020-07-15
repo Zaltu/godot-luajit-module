@@ -6,7 +6,6 @@
 #include <iostream>
 
 PXLua::PXLua() {
-    setupLuaState();
 }
 
 /**
@@ -58,7 +57,12 @@ void PXLua::startGame(){
     runPathSet(SETUP_STATE);
 }
 
-void PXLua::setupLuaState(){
+void PXLua::setupLuaState(
+    String LUA_PERSONAX_PATH,
+    String MY_LUA_PATH,
+    String MY_LUA_CPATH,
+    String GLOBAL_DATAPATH
+){
     L = lua_open();
     luaL_openlibs(L);
     runPathSet(LUA_PERSONAX_PATH);
@@ -69,8 +73,8 @@ void PXLua::setupLuaState(){
     lua_getglobal(L, "state");
 }
 
-void PXLua::runPathSet(const char* command){
-    int code = luaL_dostring(L, command);
+void PXLua::runPathSet(String command){
+    int code = luaL_dostring(L, command.utf8());
     if (code != 0){
         // Prob should return the real error code
         std::cout << lua_tostring(L, -1) << std::endl;
@@ -81,4 +85,5 @@ void PXLua::_bind_methods() {
     ClassDB::bind_method(D_METHOD("sendStateEvent", "event"), &PXLua::sendStateEvent);
     ClassDB::bind_method(D_METHOD("getUpdate"), &PXLua::getUpdate);
     ClassDB::bind_method(D_METHOD("startGame"), &PXLua::startGame);
+    ClassDB::bind_method(D_METHOD("setupLuaState", "LUA_PERSONAX_PATH", "MY_LUA_PATH", "MY_LUA_CPATH", "GLOBAL_DATAPATH"), &PXLua::setupLuaState);
 }
