@@ -14,8 +14,8 @@ extern "C"{
 /*Defines runtime Lua import paths, and imports the state, which instantiates the game state
 and sets it as global variable. Defined for explicit runtime. Currently checks for the paths
 in my personal clone of the lua src.*/
-String REQUIRE_STATE = "require('state')";
-String SETUP_STATE = "require('util/state/start_game')";
+const String REQUIRE_STATE_PX = "require('state')";
+const String SETUP_STATE_PX = "require('util/state/start_game')";
 
 
 class PXLua : public Reference {

@@ -54,7 +54,7 @@ String PXLua::getUpdate(){
 * the game state to day 1/default start.
 */
 void PXLua::startGame(){
-    runPathSet(SETUP_STATE);
+    runPathSet(SETUP_STATE_PX);
 }
 
 void PXLua::setupLuaState(
@@ -69,7 +69,7 @@ void PXLua::setupLuaState(
     runPathSet(MY_LUA_PATH);
     runPathSet(MY_LUA_CPATH);
     runPathSet(GLOBAL_DATAPATH);
-    runPathSet(REQUIRE_STATE);
+    runPathSet(REQUIRE_STATE_PX);
     lua_getglobal(L, "state");
 }
 
